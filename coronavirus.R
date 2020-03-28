@@ -17,7 +17,7 @@ meltedData = melt(dataSub,id.vars = c("day","date"))
 palette = c("Quebec" = "#2b04d9",'Canada' = '#d90432','United.States'='#0492d9',
             'British.Columbia'='#8004d9', 'California'='#32a852',
             'United.Kingdom' = '#f29807','Australia'='#7c26ad',
-            'France'='#26ad7b')
+            'France'='#26ad7b','Netherlands'='#2655ad')
 
 
 p1 = ggplot(meltedData,aes(x = date,y=value,group = variable,color = variable))+
@@ -26,7 +26,7 @@ p1 = ggplot(meltedData,aes(x = date,y=value,group = variable,color = variable))+
   geom_point()+scale_y_continuous(trans='log10')+
   ylab("Nb of cases")+xlab('Progression (days)')
 p1
-png("Coronavirus-NorthAmericaCentered.png")
+png("Coronavirus-NorthAmericaCentered.png",width = 800,height = 800)
 print(p1)
 dev.off()
 
@@ -115,7 +115,7 @@ dev.off()
 ### Plotting only countries of interest
 ##################################################
 dataSub3 = data[,c('date','day','France','Canada','United.States',
-                  'Australia','United.Kingdom')]
+                  'Australia','United.Kingdom','Netherlands')]
 meltedData3 = melt(dataSub3,id.vars = c("day","date"))
 
 p4 = ggplot(meltedData3,aes(x = date,y=value,group = variable,color = variable))+
@@ -123,8 +123,9 @@ p4 = ggplot(meltedData3,aes(x = date,y=value,group = variable,color = variable))
   scale_color_manual(values=palette)+
   geom_point()+scale_y_continuous(trans='log10')+
   ylab("Nb of cases")+xlab('Progression (days)')
-p4
-png("Coronavirus-CountryCentered.png")
+p4theme_bw()
+
+png("Coronavirus-CountryCentered.png",width = 700,height = 700)
 print(p4)
 dev.off()
 
